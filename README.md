@@ -35,4 +35,4 @@ python3 main.py -c -f (filename !required!)
 >```
 
 ### ISSUES
-[!] might not fully work with .css files due to probably missing some formats
+[!] Does not work with .css files (yet)
