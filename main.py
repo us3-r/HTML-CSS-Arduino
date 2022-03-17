@@ -9,6 +9,7 @@ pp=argparse.ArgumentParser(description="Commands for program")
 
 pp.add_argument('-c',help="Name of your Ethernet Client ", type=str, default="client")
 pp.add_argument('-f', help="File you want formated to html for Arduino", type=str)
+pp.add_argument('-t', help="File type \"html\" or \"css\"", type=str, default="html")
 
 args = pp.parse_args()
 
@@ -55,52 +56,53 @@ write = open(reform_file,'a+')
 
 line_num=0
 
-style=False
-### goes through lines and reforms them so they can be pasted in arduino
-for line in file:
-    line_num+=1
-    line_=line
-    line_clean=check(line_)
-    #makes shore its not a blank line
-    if line_.startswith('<') or line_.startswith(" "):
-        if "<h" in line_clean or "<p" in line_clean:
-            line_ref=preset_+line_clean
-            line_ref=line_ref+"\");"
-            write.write(str(line_ref.rsplit('\n')))
-            write.write("\n")
-        ### form here till "else:" it checks if it belongs to <style> if it does it changes from println to print so its printed in the same line
-        elif "<style>" in line_ or "</style>" in line_:
-            line_ref=preset_+line_clean
-            line_ref=line_ref+"\");"
-            write.write(str(line_ref.rsplit('\n')))
-            write.write("\n")
-        elif ";" in line_:
-            line_ref=preset_+line_clean
-            line_ref=line_ref+"\");"
-            write.write(str(line_ref.rsplit('\n')))
-            write.write("\n")
-        elif "." in line_ and "{" in line_:
-            line_ref=preset_+line_clean
-            line_ref=line_ref+"\");"
-            write.write(str(line_ref.rsplit('\n')))
-            write.write("\n")
-        ### if none of the above arguments are fulfilled it does println
+if args.t == "html":
+    ### goes through lines and reforms them so they can be pasted in arduino
+    for line in file:
+        line_num+=1
+        line_=line
+        line_clean=check(line_)
+        #makes shore its not a blank line
+        if line_.startswith('<') or line_.startswith(" "):
+            if "<h" in line_clean or "<p" in line_clean:
+                line_ref=preset_+line_clean
+                line_ref=line_ref+"\");"
+                write.write(str(line_ref.rsplit('\n')))
+                write.write("\n")
+            ### form here till "else:" it checks if it belongs to <style> if it does it changes from println to print so its printed in the same line
+            elif "<style>" in line_ or "</style>" in line_:
+                line_ref=preset_+line_clean
+                line_ref=line_ref+"\");"
+                write.write(str(line_ref.rsplit('\n')))
+                write.write("\n")
+            elif ";" in line_:
+                line_ref=preset_+line_clean
+                line_ref=line_ref+"\");"
+                write.write(str(line_ref.rsplit('\n')))
+                write.write("\n")
+            elif "." in line_ and "{" in line_:
+                line_ref=preset_+line_clean
+                line_ref=line_ref+"\");"
+                write.write(str(line_ref.rsplit('\n')))
+                write.write("\n")
+            ### if none of the above arguments are fulfilled it does println
+            else:
+                line_ref = preset_ln+line_clean
+                line_ref=line_ref+"\");"
+                write.write(str(line_ref.rsplit('\n')))
+                write.write("\n")
+            print(f'{colors.green}[↲] success reformed line')
         else:
-            line_ref = preset_ln+line_clean
-            line_ref=line_ref+"\");"
-            write.write(str(line_ref.rsplit('\n')))
-            write.write("\n")
-        print(f'{colors.green}[↲] success reformed line')
-    else:
-        print(f'{colors.yellow}[!] Warning failed to reform at line :{line_num}')
+            print(f'{colors.yellow}[!] Warning failed to reform at line :{line_num}')
 
-print(f'{colors.blue}[>] File reformed, cleaning it up now :) [<]')
+    print(f'{colors.blue}[>] File reformed, cleaning it up now :) [<]')
 
 
-### closes the files
-file.close
-write.close
-
+    ### closes the files
+    file.close
+    write.close
+elif args.t == "css":
+    pass
 ### FOR CLEANING THE FILE UP ###
 reform_file=reform_file
 
