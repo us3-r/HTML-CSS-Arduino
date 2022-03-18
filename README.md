@@ -18,11 +18,11 @@ To run this program you need to have:<br />
 >  ```
 3. To start the program, in terminal write:
 ```bash
-python main.py -c (EthernetClient name !Optional!) -f (filename !Required!)
+python main.py -c (EthernetClient name !Optional!) -f (filename !Required!) -t (code type !Required!)
 ```
 or
 ```bash
-python3 main.py -c -f (filename !required!)
+python3 main.py -c -f (filename !required!) -t (code type !Required!)
 ```
 
 ## What to put in arguments
