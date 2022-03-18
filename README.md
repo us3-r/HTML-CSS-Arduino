@@ -33,6 +33,8 @@ python3 main.py -c -f (filename !required!)
 >```bash
 >-f [name of your file] e.g.: index.html, style.css, test.txt
 >```
+>```bash
+>-t [type of code] html or css 
 
 ### ISSUES
-[!] Does not work with .css files (yet)
+>[!] Does not work with .css files [fixed]
