@@ -1,6 +1,8 @@
+import re
 import os
 import sys
 import argparse
+from turtle import st
 from clr import colors
 
 os.system("")
@@ -36,11 +38,14 @@ reform_file=f'reform_{base}.txt'
 ### [check] function is used to check if there are  "  in line and if they are it pits \ in front of it so there are no errors
 def check(string):
     line=""
+    swap=chr(92)
+    swap=str(swap)
     for i, w in enumerate(string):
         if w == "\"":
-            line=line+"\\"+w
+            line=line+swap+w
         else:
             line=line+w
+    # line=re.sub('"','\\\"', string)
     return line
 
 
@@ -94,15 +99,62 @@ if args.t == "html":
             print(f'{colors.green}[↲] success reformed line')
         else:
             print(f'{colors.yellow}[!] Warning failed to reform at line :{line_num}')
-
     print(f'{colors.blue}[>] File reformed, cleaning it up now :) [<]')
 
+### /\ till here is ok
 
-    ### closes the files
-    file.close
-    write.close
 elif args.t == "css":
-    pass
+    print(f'{colors.red}wrong way {colors.rst}')
+    file_mem = []
+    group_line = []
+    line_num = 0
+    for line in file:
+        file_mem.append(line)
+        line_num+=1
+        line_a=line
+        line_=check(line_a)
+        if line_num == 0:
+            old_num=0
+        else:
+            old_num=line_num-1
+        old_line=file_mem[old_num]
+        ### if line ends with ',' is applyed that there will be at least one more line connected to this so we put it in the same file line
+        if ',' in line_:
+            line_=str(line_.rsplit('\n'))
+            group_line.append(line_)
+            print(f'{colors.green}[↲] success reformed line')
+
+        if '{' in line_:
+            line_=str(line_.rsplit('\n'))
+            group_line.append(line_)
+            print(f'{colors.green}[↲] success reformed line')
+
+        if  ';' in line_:
+            line_=str(line_.rsplit('\n'))
+            group_line.append(line_)
+            print(f'{colors.green}[↲] success reformed line')
+
+        if '}' in line_ and group_line:
+            to_file=""
+            for i in range(len(group_line)):
+                to_file=to_file+" "+group_line[i]
+            to_file=to_file+" "+"}"+"\");"
+            for_write=preset_ln+to_file
+            #write.write(str(for_write.rsplit('\n')))
+            write.write(for_write)
+            write.write("\n")
+            group_line.clear()
+
+        else:
+            line_write=line_
+            write.write(str(line_write.rsplit('\n')))
+            write.write("\n")
+            print(f'{colors.yellow}[!] Warning (but probably fine) to reform at line :{line_num}')
+
+        if line_.startswith(" ") and not line_.endswith(';'):
+            group_line.clear()
+        else:
+            pass
 ### FOR CLEANING THE FILE UP ###
 reform_file=reform_file
 
@@ -116,18 +168,50 @@ except IOError:
 
 ### creates fresh.txt file where clean reformated code will be
 write=open("fresh.txt","a+")
-
+css_clean=open("mid_clean.txt","a+")
 print(f'{colors.cyan}Cleaning up')
+
+
 
 ### Cleans the code up using string.replace() function
 for line in recheck:
     line__=line
     line_1_1=line__.replace("\', \'","")
-    line_1_1=line_1_1.replace("[\'", "")
     line_1_1=line_1_1.replace("\']", "")
-    write.write(line_1_1)
+    line_1_1=line_1_1.replace("\\\\","\\")
+    line_1_1=re.sub(' +','',line_1_1)
+    if args.t == "css":
+        line_1_1=line_1_1.replace("[\'","")
+        css_clean.write(line_1_1)
+    else:
+        write.write(line_1_1)
+
+css_clean.close
+css_clean=open("mid_clean.txt","a+")
+
+if args.t == "css":
+    for line in css_clean:
+        if str(client_name) not in line:
+            write.write(" ")
+        else:
+            write.write(line)
+    write.close
+
+if args.t == "css":
+    write2=open("clean.txt","a+")
+    write=open("fresh.txt","r")
+    for line in write:
+        cl=re.sub(' +','', line)
+        write2.write(cl)
+    write2.close
+
 
 ### closes both files
+if args.t == "css":
+    os.remove("fresh.txt")
+else:pass
+
+os.remove("mid_clean.txt")
 recheck.close
 write.close
 ### removes the dirty file
