@@ -1,7 +1,6 @@
 # HTML-CSS-Arduino
 This is a simple Python script that converts .html file format to format that can be copied and pasted to .ino files
 
-## Showcase
 ## Requirements
 To run this program you need to have:<br />
 ~ [Python](https://www.python.org/downloads/)<br />
@@ -42,3 +41,13 @@ python3 main.py -c -f (filename !required!) -t (code type !Required!)
 
 ### ISSUES
 >[!] Does not work with .css files [fixed]
+
+## Showcase HTML -> Arduino
+![vmplayer_eLvtDNrquT](https://user-images.githubusercontent.com/89808542/159131089-903e9090-2ec0-480e-aa6a-41755497d48c.png)
+![vmplayer_tip14HEUZl](https://user-images.githubusercontent.com/89808542/159131103-4d0fc206-0338-455d-a4f1-52e30e1052a2.png)
+![vmplayer_J8zvijt2kS](https://user-images.githubusercontent.com/89808542/159131107-a5a7e5ed-3639-4399-b3b2-ff8c084bf04a.png)
+
+## Showcase CSS -> Arduino
+![vmplayer_B96DYcqgUM](https://user-images.githubusercontent.com/89808542/159131133-277631fb-fc41-4965-ae22-664d4a10f055.png)
+![vmplayer_lWybsMfl1Z](https://user-images.githubusercontent.com/89808542/159131135-c34b4cb6-6982-4777-a364-2f6591e86440.png)
+![vmplayer_hF90aUJinE](https://user-images.githubusercontent.com/89808542/159131237-c6f712ea-1731-455e-86e7-5dea5e4aa4df.png)
