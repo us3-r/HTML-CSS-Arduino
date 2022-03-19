@@ -49,5 +49,5 @@ python3 main.py -c -f (filename !required!) -t (code type !Required!)
 
 ## Showcase CSS -> Arduino
 ![vmplayer_B96DYcqgUM](https://user-images.githubusercontent.com/89808542/159131133-277631fb-fc41-4965-ae22-664d4a10f055.png)
-![vmplayer_lWybsMfl1Z](https://user-images.githubusercontent.com/89808542/159131135-c34b4cb6-6982-4777-a364-2f6591e86440.png)
+![vmplayer_ElgqgwZsXA](https://user-images.githubusercontent.com/89808542/159131361-33b92895-c980-42e0-b7a4-c9d32a081d60.png)
 ![vmplayer_hF90aUJinE](https://user-images.githubusercontent.com/89808542/159131237-c6f712ea-1731-455e-86e7-5dea5e4aa4df.png)
