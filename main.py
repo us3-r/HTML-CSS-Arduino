@@ -130,6 +130,20 @@ elif args.t == "css":
             line_=str(line_.rsplit('\n'))
             group_line.append(line_)
             print(f'{colors.green}[↳] success reformed line')
+        if line_.startswith(':'):
+            line_=str(line_.rsplit('\n'))
+            group_line.append(line_)
+            print(f'{colors.green}[↳] success reformed line')
+        if '@' in line_:
+            line_=str(line_.rsplit('\n'))
+            group_line.append(line_)
+            print(f'{colors.green}[↳] success reformed line')
+        if '*' in line_:
+            line_=str(line_.rsplit('\n'))
+            group_line.append(line_)
+            print(f'{colors.green}[↳] success reformed line')
+        if '/*' in line_:
+            pass
 
         ### if line ends with '}' its assumed that the current block of code has ended;
         ### in this case if there was any code above that belongs to set block it all combines it together
@@ -171,7 +185,9 @@ except IOError:
 
 ### creates fresh.txt file where clean reformated code will be
 write=open("fresh.txt","a+")
-css_clean=open("mid_clean.txt","a+")
+if args.t == "css":
+    css_clean=open("mid_clean.txt","a+")
+else:pass
 print(f'{colors.cyan}Cleaning up')
 
 
@@ -182,24 +198,29 @@ for line in recheck:
     line_1_1=line__.replace("\', \'","")
     line_1_1=line_1_1.replace("\']", "")
     line_1_1=line_1_1.replace("\\\\","\\")
+    line_1_1=line_1_1.replace("[\'","")
     line_1_1=re.sub(' +','',line_1_1)
     if args.t == "css":
         ### if code type is css >
-        line_1_1=line_1_1.replace("[\'","")
+        # line_1_1=line_1_1.replace("[\'","")
         css_clean.write(line_1_1)
     else:
         write.write(line_1_1)
 
-css_clean.close
-css_clean=open("mid_clean.txt","a+")
+
+### IF CODE TYPE IS CSS ###
+if args.t=="css":
+    css_clean.close
+    css_clean=open("mid_clean.txt","r")
 
 ### if there are any lines that are not propaly formated this removes them
 if args.t == "css":
+    s=client_name[0]
     for line in css_clean:
-        if str(client_name) not in line:
-            write.write(" ")
-        else:
+        if line.startswith(s):
             write.write(line)
+        else:
+            write.write(" ")
     write.close
 
 ### removes all blank spaces in code
@@ -212,10 +233,11 @@ if args.t == "css":
     write2.close
 
 
-### closes both files
+### CLOSING FILES ###
 if args.t == "css":
     ### if code is css it needs an extra file to clean it up, so here it removes the set file
     os.remove("fresh.txt")
+    os.remove("mid_clean.txt")
 else:pass
 
 
@@ -224,6 +246,6 @@ recheck.close
 write.close
 ### removes the dirty file
 os.remove(reform_file)
-os.remove("mid_clean.txt")
+
 
 print(f'{colors.green}SUCCESSFULLY CLEANED{colors.rst}\nYour cleanned file is fresh.txt')
