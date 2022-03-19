@@ -36,5 +36,8 @@ python3 main.py -c -f (filename !required!) -t (code type !Required!)
 >```bash
 >-t [type of code] html or css 
 
+### TODO
+[↳ More advanced html reformating
+
 ### ISSUES
 >[!] Does not work with .css files [fixed]
