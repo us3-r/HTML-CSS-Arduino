@@ -2,7 +2,6 @@ import re
 import os
 import sys
 import argparse
-from turtle import st
 from clr import colors
 
 os.system("")
