@@ -2,6 +2,7 @@ import re
 import os
 import sys
 import argparse
+from turtle import st
 from clr import colors
 
 os.system("")
@@ -34,7 +35,7 @@ new_file_name=f'{base}.txt'
 ### sets file name in which reformed code will be
 reform_file=f'reform_{base}.txt'
 
-### [check] function is used to check if there are  "  in line and if they are it pits \ in front of it so there are no errors
+### [check] function is used to check if there are  "  in line and if they are it puts \ in front of it so there are no errors
 def check(string):
     line=""
     swap=chr(92)
@@ -51,7 +52,7 @@ def check(string):
 ### tries to open file
 try:
     file=open(new_file_name,'r')
-    print(f'{colors.green}{colors.bold}File successfully opened{colors.rst}')
+    print(f'{colors.green}{colors.bold}[↱] File successfully opened{colors.rst}')
 except IOError:
     print(f'{colors.red}{colors.bold}{new_file_name} could not be opened{colors.rst}')
 
@@ -95,12 +96,11 @@ if args.t == "html":
                 line_ref=line_ref+"\");"
                 write.write(str(line_ref.rsplit('\n')))
                 write.write("\n")
-            print(f'{colors.green}[↲] success reformed line')
+            print(f'{colors.green}[↳] success reformed line')
         else:
             print(f'{colors.yellow}[!] Warning failed to reform at line :{line_num}')
     print(f'{colors.blue}[>] File reformed, cleaning it up now :) [<]')
 
-### /\ till here is ok
 
 elif args.t == "css":
     print(f'{colors.red}wrong way {colors.rst}')
@@ -117,22 +117,24 @@ elif args.t == "css":
         else:
             old_num=line_num-1
         old_line=file_mem[old_num]
-        ### if line ends with ',' is applyed that there will be at least one more line connected to this so we put it in the same file line
+        ### if line ends with any of down bellow listed characters is applied,
+        ### that there will be at least one more line connected to this so we put it in the same file line
         if ',' in line_:
             line_=str(line_.rsplit('\n'))
             group_line.append(line_)
-            print(f'{colors.green}[↲] success reformed line')
-
+            print(f'{colors.green}[↳] success reformed line')
         if '{' in line_:
             line_=str(line_.rsplit('\n'))
             group_line.append(line_)
-            print(f'{colors.green}[↲] success reformed line')
-
+            print(f'{colors.green}[↳] success reformed line')
         if  ';' in line_:
             line_=str(line_.rsplit('\n'))
             group_line.append(line_)
-            print(f'{colors.green}[↲] success reformed line')
+            print(f'{colors.green}[↳] success reformed line')
 
+        ### if line ends with '}' its assumed that the current block of code has ended;
+        ### in this case if there was any code above that belongs to set block it all combines it together
+        ### and adds it to the file in the same line with preset_ln
         if '}' in line_ and group_line:
             to_file=""
             for i in range(len(group_line)):
@@ -148,12 +150,15 @@ elif args.t == "css":
             line_write=line_
             write.write(str(line_write.rsplit('\n')))
             write.write("\n")
-            print(f'{colors.yellow}[!] Warning (but probably fine) to reform at line :{line_num}')
+            print(f'{colors.yellow}[!] Warning (but probably fine) fail to reform at line :{line_num}')
 
+        ### when the line starts with blank space and does not end with  ';' (is assumed that the previous block of code has ended,
+        ###     and the new block will bigene so it clears the list)
         if line_.startswith(" ") and not line_.endswith(';'):
             group_line.clear()
         else:
             pass
+
 ### FOR CLEANING THE FILE UP ###
 reform_file=reform_file
 
@@ -180,6 +185,7 @@ for line in recheck:
     line_1_1=line_1_1.replace("\\\\","\\")
     line_1_1=re.sub(' +','',line_1_1)
     if args.t == "css":
+        ### if code type is css >
         line_1_1=line_1_1.replace("[\'","")
         css_clean.write(line_1_1)
     else:
@@ -188,6 +194,7 @@ for line in recheck:
 css_clean.close
 css_clean=open("mid_clean.txt","a+")
 
+### if there are any lines that are not propaly formated this removes them
 if args.t == "css":
     for line in css_clean:
         if str(client_name) not in line:
@@ -196,6 +203,7 @@ if args.t == "css":
             write.write(line)
     write.close
 
+### removes all blank spaces in code
 if args.t == "css":
     write2=open("clean.txt","a+")
     write=open("fresh.txt","r")
@@ -207,13 +215,16 @@ if args.t == "css":
 
 ### closes both files
 if args.t == "css":
+    ### if code is css it needs an extra file to clean it up, so here it removes the set file
     os.remove("fresh.txt")
 else:pass
 
-os.remove("mid_clean.txt")
+
+### closes open files
 recheck.close
 write.close
 ### removes the dirty file
 os.remove(reform_file)
+os.remove("mid_clean.txt")
 
 print(f'{colors.green}SUCCESSFULLY CLEANED{colors.rst}\nYour cleanned file is fresh.txt')
