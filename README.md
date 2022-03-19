@@ -27,14 +27,15 @@ python3 main.py -c -f (filename !required!) -t (code type !Required!)
 
 ## What to put in arguments
 **Argument -f is required and the program will not work if a value is not given for set argument**
->```bash
->-c [name of your EthernetClient]
->```
->```bash
->-f [name of your file] e.g.: index.html, style.css, test.txt
->```
->```bash
->-t [type of code] html or css 
+```bash
+-c [name of your EthernetClient]
+```
+```bash
+-f [name of your file] e.g.: index.html, style.css, test.txt
+```
+```bash
+-t [type of code] html or css 
+```
 
 ### TODO
 [↳ More advanced html reformating
