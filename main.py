@@ -102,7 +102,6 @@ if args.t == "html":
 
 
 elif args.t == "css":
-    print(f'{colors.red}wrong way {colors.rst}')
     file_mem = []
     group_line = []
     line_num = 0
