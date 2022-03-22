@@ -152,7 +152,7 @@ elif args.t == "css":
             for i in range(len(group_line)):
                 to_file=to_file+" "+group_line[i]
             to_file=to_file+" "+"}"+"\");"
-            for_write=preset_ln+to_file
+            for_write=preset_+to_file
             #write.write(str(for_write.rsplit('\n')))
             write.write(for_write)
             write.write("\n")
