@@ -1,22 +1,47 @@
 import re
 import os
-import sys
+from os import error
 import argparse
+
 from clr import colors
 
 os.system("")
 
 pp=argparse.ArgumentParser(description="Commands for program")
 
-pp.add_argument('-c',help="Name of your Ethernet Client ", type=str, default="client")
+pp.add_argument('-a',help="Name of your Ethernet Client ", type=str, default="client")
 pp.add_argument('-f', help="File you want formated to html for Arduino", type=str)
 pp.add_argument('-t', help="File type \"html\" or \"css\"", type=str, default="html")
+pp.add_argument('-c', help="skip comments", type=str, default='t')
 
 args = pp.parse_args()
 
+if args.t=="css":
+    try:
+        os.remove("clean.txt")
+        print(f"{colors.bold}{colors.Lyellow}[!] Previous file: clean.txt has been removed for cleaner file look{colors.rst}")
+    except OSError:
+        pass
+elif args.t=="html":
+    try:
+        os.remove("fresh.txt")
+        print(f"{colors.bold}{colors.Lyellow}[!] Previous file: fresh.txt has been removed for cleaner file look{colors.rst}")
+    except:
+        pass
+
+css_comment_0 = "/*"
+css_comment_1 = "*/"
+
+html_comment_0 = "<!--"
+html_comment_1 = "-->"
 
 client_name = args.c
 file_name_raw = args.f
+
+if args.c=='t' or args.c=='T':
+    skip_comment=True
+elif args.c=='f' or args.c=='F':
+    skip_comment=False
 
 ### set preset for writing html in arduino file
 preset_ln = f'{client_name}.println(\"'
@@ -51,54 +76,58 @@ def check(string):
 ### tries to open file
 try:
     file=open(new_file_name,'r')
-    print(f'{colors.green}{colors.bold}[↱] File successfully opened{colors.rst}')
+    print(f'{colors.green}{colors.bold}[↣ ] File successfully opened{colors.rst}')
 except IOError:
     print(f'{colors.red}{colors.bold}{new_file_name} could not be opened{colors.rst}')
 
+
 ### opens a reform_file
 write = open(reform_file,'a+')
-
 line_num=0
 
 if args.t == "html":
     ### goes through lines and reforms them so they can be pasted in arduino
+    style_lines=[]
+    comment_lines=[]
     for line in file:
+        comment=False
         line_num+=1
         line_=line
         line_clean=check(line_)
         #makes shore its not a blank line
         if line_.startswith('<') or line_.startswith(" "):
-            if "<h" in line_clean or "<p" in line_clean:
-                line_ref=preset_+line_clean
-                line_ref=line_ref+"\");"
-                write.write(str(line_ref.rsplit('\n')))
-                write.write("\n")
-            ### form here till "else:" it checks if it belongs to <style> if it does it changes from println to print so its printed in the same line
-            elif "<style>" in line_ or "</style>" in line_:
-                line_ref=preset_+line_clean
-                line_ref=line_ref+"\");"
-                write.write(str(line_ref.rsplit('\n')))
-                write.write("\n")
-            elif ";" in line_:
-                line_ref=preset_+line_clean
-                line_ref=line_ref+"\");"
-                write.write(str(line_ref.rsplit('\n')))
-                write.write("\n")
-            elif "." in line_ and "{" in line_:
-                line_ref=preset_+line_clean
-                line_ref=line_ref+"\");"
-                write.write(str(line_ref.rsplit('\n')))
-                write.write("\n")
-            ### if none of the above arguments are fulfilled it does println
+            if html_comment_0 in line_:
+                if skip_comment:
+                    write.write("")
+                    comment=True
+                    print("   [↘]  Comment ignored")
+                elif not skip_comment:
+                    to_write="// "+line_
+                    write.write(to_write)
+                    comment=True
+                    print("   [↘]  Comment added")
+            if comment==False:
+                if "." in line_ and "{" in line_clean:
+                    style_lines.append(line_clean)
+                if ';' in line_clean:
+                    style_lines.append(line_clean)
+                if '}' in line_ and style_lines:
+                    to_file=""
+                    for sl in style_lines:
+                        to_file=to_file+sl
+                    to_write=preset_ln+to_file+"\");"
+                    write.write(str(to_write.rsplit('\n')))
+                    write.write("\n")
+                    style_lines.clear()
+                if "<" in line_clean:
+                    line_ref=preset_+line_clean
+                    line_ref=line_ref+"\");"
+                    write.write(str(line_ref.rsplit('\n')))
+                    write.write("\n")
+                    print(f'{colors.Lgreen}  [↳]  success reformed line')
             else:
-                line_ref = preset_ln+line_clean
-                line_ref=line_ref+"\");"
-                write.write(str(line_ref.rsplit('\n')))
-                write.write("\n")
-            print(f'{colors.green}[↳] success reformed line')
-        else:
-            print(f'{colors.yellow}[!] Warning failed to reform at line :{line_num}')
-    print(f'{colors.blue}[>] File reformed, cleaning it up now :) [<]')
+                print(f'{colors.yellow}[ignore] Warning failed to reform at line :{line_num}')
+    print(f'{colors.Lblue}[>]  File reformed, cleaning it up now :) [<]')
 
 
 elif args.t == "css":
@@ -120,27 +149,27 @@ elif args.t == "css":
         if ',' in line_:
             line_=str(line_.rsplit('\n'))
             group_line.append(line_)
-            print(f'{colors.green}[↳] success reformed line')
+            print(f'{colors.Lgreen} [↳]  success reformed line')
         if '{' in line_:
             line_=str(line_.rsplit('\n'))
             group_line.append(line_)
-            print(f'{colors.green}[↳] success reformed line')
+            print(f'{colors.Lgreen} [↳]  success reformed line')
         if  ';' in line_:
             line_=str(line_.rsplit('\n'))
             group_line.append(line_)
-            print(f'{colors.green}[↳] success reformed line')
+            print(f'{colors.Lgreen} [↳]  success reformed line')
         if line_.startswith(':'):
             line_=str(line_.rsplit('\n'))
             group_line.append(line_)
-            print(f'{colors.green}[↳] success reformed line')
+            print(f'{colors.Lgreen} [↳]  success reformed line')
         if '@' in line_:
             line_=str(line_.rsplit('\n'))
             group_line.append(line_)
-            print(f'{colors.green}[↳] success reformed line')
+            print(f'{colors.Lgreen} [↳]  success reformed line')
         if '*' in line_:
             line_=str(line_.rsplit('\n'))
             group_line.append(line_)
-            print(f'{colors.green}[↳] success reformed line')
+            print(f'{colors.Lgreen} [↳]  success reformed line')
         if '/*' in line_:
             pass
 
@@ -162,7 +191,7 @@ elif args.t == "css":
             line_write=line_
             write.write(str(line_write.rsplit('\n')))
             write.write("\n")
-            print(f'{colors.yellow}[!] Warning (but probably fine) fail to reform at line :{line_num}')
+            print(f'{colors.yellow}[ignore]  Warning (but probably fine) fail to reform at line :{line_num}')
 
         ### when the line starts with blank space and does not end with  ';' (is assumed that the previous block of code has ended,
         ###     and the new block will bigene so it clears the list)
@@ -187,7 +216,7 @@ write=open("fresh.txt","a+")
 if args.t == "css":
     css_clean=open("mid_clean.txt","a+")
 else:pass
-print(f'{colors.cyan}Cleaning up')
+print(f'{colors.cyan}[]   Cleaning up')
 
 
 
@@ -198,7 +227,7 @@ for line in recheck:
     line_1_1=line_1_1.replace("\']", "")
     line_1_1=line_1_1.replace("\\\\","\\")
     line_1_1=line_1_1.replace("[\'","")
-    line_1_1=re.sub(' +','',line_1_1)
+    line_1_1=re.sub(' +',' ',line_1_1)
     if args.t == "css":
         ### if code type is css >
         # line_1_1=line_1_1.replace("[\'","")
@@ -227,7 +256,7 @@ if args.t == "css":
     write2=open("clean.txt","a+")
     write=open("fresh.txt","r")
     for line in write:
-        cl=re.sub(' +','', line)
+        cl=re.sub(' +',' ', line)
         write2.write(cl)
     write2.close
 
@@ -247,4 +276,4 @@ write.close
 os.remove(reform_file)
 
 
-print(f'{colors.green}SUCCESSFULLY CLEANED{colors.rst}\nYour cleanned file is fresh.txt')
+print(f'{colors.Lgreen}SUCCESSFULLY CLEANED{colors.rst}\nYour cleanned file is fresh.txt')
