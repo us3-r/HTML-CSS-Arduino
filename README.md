@@ -17,17 +17,17 @@ To run this program you need to have:<br />
 >  ```
 3. To start the program, in terminal write:
 ```bash
-python main.py -c (EthernetClient name !Optional!) -f (filename !Required!) -t (code type !Required!)
+python main.py -a (EthernetClient name !Optional!) -f (filename !Required!) -t (code type !Required!)
 ```
 or
 ```bash
-python3 main.py -c -f (filename !required!) -t (code type !Required!)
+python3 main.py -a -f (filename !required!) -t (code type !Required!) -c (t or f)
 ```
 
 ## What to put in arguments
 **Argument -f is required and the program will not work if a value is not given for set argument**
 ```bash
--c [name of your EthernetClient]
+-a [name of your EthernetClient]
 ```
 ```bash
 -f [name of your file] e.g.: index.html, style.css, test.txt
@@ -35,17 +35,20 @@ python3 main.py -c -f (filename !required!) -t (code type !Required!)
 ```bash
 -t [type of code] html or css 
 ```
+```bash
+-c [t or f] enter false if you want your comments to stay and be added to .ino code
+```
 
 ### TODO
-[↳ More advanced html reformating
+[↳ Add skip/leave comments option for .css
 
 ### ISSUES
 >[!] Does not work with .css files [fixed]
 
 ## Showcase HTML -> Arduino
-![vmplayer_eLvtDNrquT](https://user-images.githubusercontent.com/89808542/159131089-903e9090-2ec0-480e-aa6a-41755497d48c.png)
-![vmplayer_tip14HEUZl](https://user-images.githubusercontent.com/89808542/159131103-4d0fc206-0338-455d-a4f1-52e30e1052a2.png)
-![vmplayer_J8zvijt2kS](https://user-images.githubusercontent.com/89808542/159131107-a5a7e5ed-3639-4399-b3b2-ff8c084bf04a.png)
+![vmplayer_WdA0iTMASV](https://user-images.githubusercontent.com/89808542/159575130-dbdfdd16-9eaf-4d75-ae20-f4f3dd141278.png)
+![vmplayer_TXBauYR6WV](https://user-images.githubusercontent.com/89808542/159575244-c6cfad2c-47cb-4240-9861-749fac7a6f68.png)
+![vmplayer_bcyBznAm2t](https://user-images.githubusercontent.com/89808542/159575599-373b821c-e758-447f-9d83-6557ba70cd21.png)
 
 ## Showcase CSS -> Arduino
 ![vmplayer_B96DYcqgUM](https://user-images.githubusercontent.com/89808542/159131133-277631fb-fc41-4965-ae22-664d4a10f055.png)
