@@ -43,10 +43,9 @@ python3 main.py -a -f (filename !required!) -t (code type !Required!) -c (t or f
 [↳ Add skip/leave comments option for .css
 
 ### ISSUES
->[!] Does not work with .css files [fixed]
->[!] No multy line comments
->[!] Comments in .css files
->
+>[!] No multy line comments <br>
+>[!] Comments in .css files <br>
+
 ## Showcase HTML -> Arduino
 ![vmplayer_WdA0iTMASV](https://user-images.githubusercontent.com/89808542/159575130-dbdfdd16-9eaf-4d75-ae20-f4f3dd141278.png)
 ![vmplayer_TXBauYR6WV](https://user-images.githubusercontent.com/89808542/159575244-c6cfad2c-47cb-4240-9861-749fac7a6f68.png)
