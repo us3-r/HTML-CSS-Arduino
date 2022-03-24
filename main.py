@@ -134,7 +134,9 @@ elif args.t == "css":
     file_mem = []
     group_line = []
     line_num = 0
+    comment_lines_css=[]
     for line in file:
+        comment=False
         file_mem.append(line)
         line_num+=1
         line_a=line
@@ -146,59 +148,63 @@ elif args.t == "css":
         old_line=file_mem[old_num]
         ### if line ends with any of down bellow listed characters is applied,
         ### that there will be at least one more line connected to this so we put it in the same file line
-        if ',' in line_:
-            line_=str(line_.rsplit('\n'))
-            group_line.append(line_)
-            print(f'{colors.Lgreen} [↳]  success reformed line')
-        if '{' in line_:
-            line_=str(line_.rsplit('\n'))
-            group_line.append(line_)
-            print(f'{colors.Lgreen} [↳]  success reformed line')
-        if  ';' in line_:
-            line_=str(line_.rsplit('\n'))
-            group_line.append(line_)
-            print(f'{colors.Lgreen} [↳]  success reformed line')
-        if line_.startswith(':'):
-            line_=str(line_.rsplit('\n'))
-            group_line.append(line_)
-            print(f'{colors.Lgreen} [↳]  success reformed line')
-        if '@' in line_:
-            line_=str(line_.rsplit('\n'))
-            group_line.append(line_)
-            print(f'{colors.Lgreen} [↳]  success reformed line')
-        if '*' in line_:
-            line_=str(line_.rsplit('\n'))
-            group_line.append(line_)
-            print(f'{colors.Lgreen} [↳]  success reformed line')
-        if '/*' in line_:
-            pass
 
-        ### if line ends with '}' its assumed that the current block of code has ended;
-        ### in this case if there was any code above that belongs to set block it all combines it together
-        ### and adds it to the file in the same line with preset_ln
-        if '}' in line_ and group_line:
-            to_file=""
-            for i in range(len(group_line)):
-                to_file=to_file+" "+group_line[i]
-            to_file=to_file+" "+"}"+"\");"
-            for_write=preset_+to_file
-            #write.write(str(for_write.rsplit('\n')))
-            write.write(for_write)
-            write.write("\n")
-            group_line.clear()
+### comments still not work
 
-        else:
-            line_write=line_
-            write.write(str(line_write.rsplit('\n')))
-            write.write("\n")
-            print(f'{colors.yellow}[ignore]  Warning (but probably fine) fail to reform at line :{line_num}')
+        if comment==False:
+            if ',' in line_:
+                line_=str(line_.rsplit('\n'))
+                group_line.append(line_)
+                print(f'{colors.Lgreen} [↳]  success reformed line')
+            if '{' in line_:
+                line_=str(line_.rsplit('\n'))
+                group_line.append(line_)
+                print(f'{colors.Lgreen} [↳]  success reformed line')
+            if  ';' in line_:
+                line_=str(line_.rsplit('\n'))
+                group_line.append(line_)
+                print(f'{colors.Lgreen} [↳]  success reformed line')
+            if line_.startswith(':'):
+                line_=str(line_.rsplit('\n'))
+                group_line.append(line_)
+                print(f'{colors.Lgreen} [↳]  success reformed line')
+            if '@' in line_:
+                line_=str(line_.rsplit('\n'))
+                group_line.append(line_)
+                print(f'{colors.Lgreen} [↳]  success reformed line')
+            if '*' in line_:
+                line_=str(line_.rsplit('\n'))
+                group_line.append(line_)
+                print(f'{colors.Lgreen} [↳]  success reformed line')
+            if '/*' in line_:
+                pass
 
-        ### when the line starts with blank space and does not end with  ';' (is assumed that the previous block of code has ended,
-        ###     and the new block will bigene so it clears the list)
-        if line_.startswith(" ") and not line_.endswith(';'):
-            group_line.clear()
-        else:
-            pass
+            ### if line ends with '}' its assumed that the current block of code has ended;
+            ### in this case if there was any code above that belongs to set block it all combines it together
+            ### and adds it to the file in the same line with preset_ln
+            if '}' in line_ and group_line:
+                to_file=""
+                for i in range(len(group_line)):
+                    to_file=to_file+" "+group_line[i]
+                to_file=to_file+" "+"}"+"\");"
+                for_write=preset_+to_file
+                #write.write(str(for_write.rsplit('\n')))
+                write.write(for_write)
+                write.write("\n")
+                group_line.clear()
+
+            else:
+                line_write=line_
+                write.write(str(line_write.rsplit('\n')))
+                write.write("\n")
+                print(f'{colors.yellow}[ignore]  Warning (but probably fine) fail to reform at line :{line_num}')
+            ### when the line starts with blank space and does not end with  ';' (is assumed that the previous block of code has ended,
+            ###     and the new block will bigene so it clears the list)
+            if line_.startswith(" ") and not line_.endswith(';'):
+                group_line.clear()
+            else:
+                pass
+        else:pass
 
 ### FOR CLEANING THE FILE UP ###
 reform_file=reform_file
@@ -256,7 +262,7 @@ if args.t == "css":
     write2=open("clean.txt","a+")
     write=open("fresh.txt","r")
     for line in write:
-        cl=re.sub(' +',' ', line)
+        cl=re.sub(' +','', line)
         write2.write(cl)
     write2.close
 
