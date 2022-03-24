@@ -36,7 +36,7 @@ python3 main.py -a -f (filename !required!) -t (code type !Required!) -c (t or f
 -t [type of code] html or css 
 ```
 ```bash
--c [t or f] enter false if you want your comments to stay and be added to .ino code
+-c [t or f] enter f if you want your comments to stay and be added to .ino code
 ```
 
 ### TODO
