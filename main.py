@@ -273,7 +273,7 @@ if args.t == "css":
     os.remove("fresh.txt")
     os.remove("mid_clean.txt")
 else:pass
-
+print(f'{colors.Lgreen}SUCCESSFULLY CLEANED{colors.rst}\nYour cleanned file is fresh.txt{colors.rst}')
 
 ### closes open files
 recheck.close
@@ -282,4 +282,4 @@ write.close
 os.remove(reform_file)
 
 
-print(f'{colors.Lgreen}SUCCESSFULLY CLEANED{colors.rst}\nYour cleanned file is fresh.txt')
+
