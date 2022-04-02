@@ -28,11 +28,11 @@ python3 main_e.py
 >  ```
 3. To start the program, in terminal write:
 ```bash
-python main.py -a (EthernetClient name !Optional!) -f (filename !Required!) -t (code type !Required!)
+python main.py -a (EthernetClient name !Optional!) -f (filename !Required!) -t (code type !Required!) -c (t or f)
 ```
 or
 ```bash
-python3 main.py -a -f (filename !required!) -t (code type !Required!) -c (t or f)
+python3 main.py -a (EthernetClient name !Optional!) -f (filename !required!) -t (code type !Required!)  -c (t or f)
 ```
 
 ## What to put in arguments
