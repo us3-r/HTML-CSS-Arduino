@@ -10,7 +10,18 @@ To run this program you need to have:<br />
 ## Installation
 1. Download code as .zip and extract it to the file of your choosing
 
-## How to use
+## How to use (main_e.py)
+1. In a terminal move to the directory where you have your main.py;
+> ```bash
+>  > cd C:\user\...
+>  ```
+3. To start the program, in terminal write:
+```bash
+python3 main_e.py
+```
+4. Follow the rules displayed on the window
+
+## How to use (main.py)
 1. In a terminal move to the directory where you have your main.py;
 > ```bash
 >  > cd C:\user\...
