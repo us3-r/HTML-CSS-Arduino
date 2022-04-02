@@ -1,16 +1,14 @@
 import re
 import os
 from os import error
-import argparse
-
 from clr import colors
 
 os.system("")
 
-client_name = input(f"{colors.purple}Name of your Ethernet Client: ")
-file_name_raw = input(f"{colors.purple}File you want formated to html for Arduino: ")
-file_type = input(f"{colors.purple}File type \"html\" or \"css\": ")
-skip_comment = input(f"{colors.purple}skip comments? (y/n): ")
+client_name = input(f"{colors.Lblue}Name of your Ethernet Client: ")
+file_name_raw = input(f"{colors.Lblue}File you want formated to html for Arduino: ")
+file_type = input(f"{colors.Lblue}File type \"html\" or \"css\": ")
+skip_comment = input(f"{colors.Lblue}skip comments? (y/n): ")
 
 if file_type == "css":
     try:
