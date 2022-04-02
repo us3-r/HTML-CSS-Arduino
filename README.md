@@ -28,26 +28,26 @@ python3 main_e.py
 >  ```
 3. To start the program, in terminal write:
 ```bash
-python main.py -a (EthernetClient name !Optional!) -f (filename !Required!) -t (code type !Required!) -c (t or f)
+python main.py -a -f -t  -c 
 ```
 or
 ```bash
-python3 main.py -a (EthernetClient name !Optional!) -f (filename !required!) -t (code type !Required!)  -c (t or f)
+python3 main.py -a -f -t -c 
 ```
 
 ## What to put in arguments
 **Argument -f is required and the program will not work if a value is not given for set argument**
 ```bash
--a [name of your EthernetClient]
+-a [name of your EthernetClient] !Optional!
 ```
 ```bash
--f [name of your file] e.g.: index.html, style.css, test.txt
+-f [name of your file] e.g.: index.html, style.css, test.txt !required!
 ```
 ```bash
--t [type of code] html or css 
+-t [type of code] html or css !required!
 ```
 ```bash
--c [t or f] enter f if you want your comments to stay and be added to .ino code
+-c [t or f] enter f if you want your comments to stay and be added to .ino code !Optional!
 ```
 
 ### TODO
