@@ -1,5 +1,5 @@
 # HTML-CSS-Arduino
-This is a simple Python script that converts ``` .html ``` file format to format that can be copied and pasted to .ino files
+This is a simple Python script that converts ``` .html ``` or ```.css``` file format to format that can be copied and pasted to .ino files
 
 ## Requirements
 To run this program you need to have:<br />
