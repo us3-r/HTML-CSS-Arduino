@@ -28,7 +28,7 @@ python3 main_e.py
 >  ```
 3. To start the program, in terminal write:
 ```bash
-python main.py -a -f -t  -c 
+python main.py -a -f -t -c 
 ```
 or
 ```bash
