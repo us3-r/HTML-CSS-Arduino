@@ -38,7 +38,7 @@ python3 main.py -a -f -t -c
 ## What to put in arguments
 **Argument -f is required and the program will not work if a value is not given for set argument**
 ```bash
--a [name of your EthernetClient]                          					            !Optional!
+-a [name of your EthernetClient]                          		        !Optional!
 ```
 ```bash
 -f [name of your file] e.g.: index.html, style.css, test.txt                    !required!
