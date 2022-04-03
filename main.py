@@ -20,10 +20,10 @@ else:
     dlb = dlb
 pp=argparse.ArgumentParser(description="Commands for program")
 
-pp.add_argument('-a',help="Name of your Ethernet Client ", type=str, default="client")
+pp.add_argument('-a',help="Name of your Ethernet Client ", type=str, nargs='?', const="client", default="client")
 pp.add_argument('-f', help="File you want formated to html for Arduino", type=str)
-pp.add_argument('-t', help="File type \"html\" or \"css\"", type=str, default="html")
-pp.add_argument('-c', help="skip comments", type=str, default='t')
+pp.add_argument('-t', help="File type \"html\" or \"css\"", type=str, nargs='?', const="html", default="html")
+pp.add_argument('-c', help="skip comments", type=str, nargs='?', const='t', default='t')
 
 args = pp.parse_args()
 
