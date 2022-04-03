@@ -38,13 +38,13 @@ python3 main.py -a -f -t -c
 ## What to put in arguments
 **Argument -f is required and the program will not work if a value is not given for set argument**
 ```bash
--a [name of your EthernetClient] !Optional!
+-a [name of your EthernetClient]                          					            !Optional!
 ```
 ```bash
--f [name of your file] e.g.: index.html, style.css, test.txt !required!
+-f [name of your file] e.g.: index.html, style.css, test.txt                    !required!
 ```
 ```bash
--t [type of code] html or css !required!
+-t [type of code] html or css                                                   !required!
 ```
 ```bash
 -c [t or f] enter f if you want your comments to stay and be added to .ino code !Optional!
