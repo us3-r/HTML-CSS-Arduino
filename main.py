@@ -2,11 +2,22 @@ import re
 import os
 from os import error
 import argparse
+import platform
 
 from clr import colors
 
-os.system("")
+lb  ='↳'
+dlb ='↘'
 
+os.system("")
+os_ = platform.system()
+print(f'{colors.Lyellow}SYSTEM: {os_}{colors.rst}')
+if os_ == 'Windows':
+    lb  ='|_'
+    dlb ='|__'
+else:
+    lb  = lb
+    dlb = dlb
 pp=argparse.ArgumentParser(description="Commands for program")
 
 pp.add_argument('-a',help="Name of your Ethernet Client ", type=str, default="client")
@@ -100,12 +111,12 @@ if args.t == "html":
                 if skip_comment:
                     write.write("")
                     comment=True
-                    print("   [↘]  Comment ignored")
+                    print(f"   [{dlb}]  Comment ignored")
                 elif not skip_comment:
                     to_write="// "+line_
                     write.write(to_write)
                     comment=True
-                    print("   [↘]  Comment added")
+                    print(f"   [{dlb}]  Comment added")
             if comment==False:
                 if "." in line_ and "{" in line_clean:
                     style_lines.append(line_clean)
@@ -124,7 +135,7 @@ if args.t == "html":
                     line_ref=line_ref+"\");"
                     write.write(str(line_ref.rsplit('\n')))
                     write.write("\n")
-                    print(f'{colors.Lgreen}  [↳]  success reformed line')
+                    print(f'{colors.Lgreen}  [{lb}]  success reformed line')
             else:
                 print(f'{colors.yellow}[ignore] Warning failed to reform at line :{line_num}')
     print(f'{colors.Lblue}[>]  File reformed, cleaning it up now :) [<]')
@@ -155,27 +166,27 @@ elif args.t == "css":
             if ',' in line_:
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if '{' in line_:
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if  ';' in line_:
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if line_.startswith(':'):
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if '@' in line_:
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if '*' in line_:
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if '/*' in line_:
                 pass
 
@@ -273,7 +284,7 @@ if args.t == "css":
     os.remove("fresh.txt")
     os.remove("mid_clean.txt")
 else:pass
-print(f'{colors.Lgreen}SUCCESSFULLY CLEANED{colors.rst}\nYour cleanned file is fresh.txt{colors.rst}')
+
 
 ### closes open files
 recheck.close
@@ -282,4 +293,4 @@ write.close
 os.remove(reform_file)
 
 
-
+print(f'{colors.Lgreen}SUCCESSFULLY CLEANED{colors.rst}\nYour cleanned file is fresh.txt')
