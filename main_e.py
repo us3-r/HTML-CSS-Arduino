@@ -1,14 +1,27 @@
 import re
 import os
 from os import error
+import argparse
+import platform
+
 from clr import colors
 
-os.system("")
+lb  ='{lb}'
+dlb ='{dlb}'
 
-client_name = input(f"{colors.Lblue}Name of your Ethernet Client: ")
-file_name_raw = input(f"{colors.Lblue}File you want formated to html for Arduino: ")
-file_type = input(f"{colors.Lblue}File type \"html\" or \"css\": ")
-skip_comment = input(f"{colors.Lblue}skip comments? (y/n): ")
+os.system("")
+os_ = platform.system()
+print(f'{colors.Lyellow}SYSTEM: {os_}{colors.rst}')
+if os_ == 'Windows':
+    lb  ='|_'
+    dlb ='|__'
+else:
+    lb  = lb
+    dlb = dlb
+client_name = input(f"{colors.purple}Name of your Ethernet Client: ")
+file_name_raw = input(f"{colors.purple}File you want formated to html for Arduino: ")
+file_type = input(f"{colors.purple}File type \"html\" or \"css\": ")
+skip_comment = input(f"{colors.purple}skip comments? (y/n): ")
 
 if file_type == "css":
     try:
@@ -91,12 +104,12 @@ if file_type == "html":
                 if skip_comment:
                     write.write("")
                     comment=True
-                    print("   [↘]  Comment ignored")
+                    print(f"   [{dlb}]  Comment ignored")
                 elif not skip_comment:
                     to_write="// "+line_
                     write.write(to_write)
                     comment=True
-                    print("   [↘]  Comment added")
+                    print(f"   [{dlb}]  Comment added")
             if comment==False:
                 if "." in line_ and "{" in line_clean:
                     style_lines.append(line_clean)
@@ -115,7 +128,7 @@ if file_type == "html":
                     line_ref=line_ref+"\");"
                     write.write(str(line_ref.rsplit('\n')))
                     write.write("\n")
-                    print(f'{colors.Lgreen}  [↳]  success reformed line')
+                    print(f'{colors.Lgreen}  [{lb}]  success reformed line')
             else:
                 print(f'{colors.yellow}[ignore] Warning failed to reform at line :{line_num}')
     print(f'{colors.Lblue}[>]  File reformed, cleaning it up now :) [<]')
@@ -146,27 +159,27 @@ elif file_type == "css":
             if ',' in line_:
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if '{' in line_:
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if  ';' in line_:
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if line_.startswith(':'):
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if '@' in line_:
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if '*' in line_:
                 line_=str(line_.rsplit('\n'))
                 group_line.append(line_)
-                print(f'{colors.Lgreen} [↳]  success reformed line')
+                print(f'{colors.Lgreen} [{lb}]  success reformed line')
             if '/*' in line_:
                 pass
 
@@ -264,7 +277,7 @@ if file_type == "css":
     os.remove("fresh.txt")
     os.remove("mid_clean.txt")
 else:pass
-print(f'{colors.Lgreen}SUCCESSFULLY CLEANED{colors.rst}\nYour cleanned file is fresh.txt{colors.rst}')
+
 
 ### closes open files
 recheck.close
@@ -273,3 +286,4 @@ write.close
 os.remove(reform_file)
 
 
+print(f'{colors.Lgreen}SUCCESSFULLY CLEANED{colors.rst}\nYour cleanned file is fresh.txt')
