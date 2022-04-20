@@ -168,7 +168,7 @@ elif args.t == "css":
     comment_lines_css = []
     for line in file:
         comment = False
-        file_mem.append(line)
+        file_mem.append(line) 
         line_num += 1
         line_a = line
         line_ = check(line_a)
