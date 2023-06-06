@@ -57,6 +57,7 @@ python3 main.py -a -f -t -c
 >[!] No multy line comments <br>
 >[!] Comments in .css files <br>
 >[!] Does Not work properly on Windows <br>
+>[!] code could be written much better
 
 ## Showcase HTML -> Arduino
 ![vmplayer_WdA0iTMASV](https://user-images.githubusercontent.com/89808542/159575130-dbdfdd16-9eaf-4d75-ae20-f4f3dd141278.png)
